@@ -60,7 +60,7 @@ export default function Register({ onSignUp }) {
       </form>
       <p className="login__redirection">
         Já é um membro? Faça o login{" "}
-        <Link className="login__link" to="/signup">
+        <Link className="login__link" to="/signin">
           {" "}
           aqui!
         </Link>

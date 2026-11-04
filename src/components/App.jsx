@@ -12,6 +12,8 @@ import api from "../utils/api.js";
 import { auth } from "../utils/auth.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import InfoToolTip from "./InfoTooltip/InfoTooltip.jsx";
+import Popup from "./Main/components/Popup/Popup.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -85,7 +87,7 @@ function App() {
     if (!token) {
       return;
     }
-    auth
+    auth //gerenciador de usuários
       .getUser(token)
       .then((userData) => {
         setCurrentUser((prevData) => ({ ...prevData, ...userData.data.email })); // guarda os dados do usuário no estado
@@ -132,9 +134,13 @@ function App() {
       const newData = await auth.signIn(email, password);
       console.log(newData);
       const userData = await auth.getUser(newData.token);
+      console.log(userData);
       localStorage.setItem("token", newData.token);
       setIsLoggedIn(true);
-      setCurrentUser(userData.data);
+      const userInfo = await api.getUserInfo();
+      console.log(userInfo);
+      // setCurrentUser(userData.data);
+      console.log(userData.data);
       navigate("/");
     } catch (error) {
       setHasError(true);
@@ -147,10 +153,19 @@ function App() {
     try {
       const newData = await auth.signUp(email, password);
       console.log(newData);
+      handleOpenPopup({ children: <InfoToolTip isSuccess={true} /> });
     } catch (error) {
+      handleOpenPopup({ children: <InfoToolTip isSuccess={false} /> });
       console.error(error);
     }
   };
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    navigate("/signin");
+  }
 
   return (
     <>
@@ -160,6 +175,7 @@ function App() {
           handleUpdateUser,
           handleUpdateAvatar,
           isLoggedIn,
+          handleLogout,
         }}
       >
         {" "}
@@ -201,6 +217,11 @@ function App() {
           />
         </Routes>
         <Footer />
+        {popup && (
+          <Popup onClose={handleClosePopup} title={popup.title}>
+            {popup.children}
+          </Popup>
+        )}
       </CurrentUserContext.Provider>
     </>
   );

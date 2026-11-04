@@ -71,11 +71,6 @@ export default function Main({
           ))}
         </ul>
       </section>
-      {popup && (
-        <Popup onClose={onClosePopup} title={popup.title}>
-          {popup.children}
-        </Popup>
-      )}
     </main>
   );
 }

@@ -4,12 +4,35 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  background-color: #000;
+  justify-content: space-between;
 }
 
 .header__logo {
   width: 173px;
   height: 33px;
   object-fit: contain;
+}
+
+.header__text {
+  color: #fff;
+  display: flex;
+}
+
+.header__redirection {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header__logout__button {
+  color: #fff;
+  background-color: #000;
+  border: none;
+  font-family: "Inter";
+}
+
+.header__logout__button:hover {
+  color: #838282;
 }
 
 @media screen and (max-width: 544px) {

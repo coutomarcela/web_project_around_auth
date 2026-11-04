@@ -1,0 +1,26 @@
+.infotooltip {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  border-radius: 10px;
+}
+
+.infotooltip__image {
+  border-style: none;
+  width: 120px;
+  align-self: center;
+  margin-top: 60px;
+  margin-bottom: 32px;
+}
+
+.infotooltip__text {
+  align-self: center;
+  font-family: "Inter";
+  font-weight: 900;
+  font-size: 24px;
+  margin-bottom: 60px;
+  width: 90%;
+  text-align: center;
+  margin-top: 0;
+}
