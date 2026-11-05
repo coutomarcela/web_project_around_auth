@@ -1,6 +1,4 @@
-# Tripleten web_project_around_auth
-
-# Around
+# Around the US
 
 ## Descrição
 
