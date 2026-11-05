@@ -16,6 +16,7 @@ class Api {
   }
 
   //pegar as informações do usuário que estão salvas no servidor e exibir na tela
+  //retorna nome, avatar, about e id
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,

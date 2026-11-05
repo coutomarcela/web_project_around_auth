@@ -90,7 +90,10 @@ function App() {
     auth //gerenciador de usuários
       .getUser(token)
       .then((userData) => {
-        setCurrentUser((prevData) => ({ ...prevData, ...userData.data.email })); // guarda os dados do usuário no estado
+        setCurrentUser((prevData) => ({
+          ...prevData,
+          email: userData.data.email,
+        })); // guarda os dados do usuário no estado
         setIsLoggedIn(true);
         navigate("/");
       })
@@ -132,20 +135,24 @@ function App() {
   const handleLogin = async (email, password) => {
     try {
       const newData = await auth.signIn(email, password);
-      console.log(newData);
       const userData = await auth.getUser(newData.token);
-      console.log(userData);
+      const userInfo = await api.getUserInfo();
+      //spread pega os dados de dentro do objeto userInfo
+      setCurrentUser({ ...userInfo, email: userData.data.email });
       localStorage.setItem("token", newData.token);
       setIsLoggedIn(true);
-      const userInfo = await api.getUserInfo();
-      console.log(userInfo);
-      // setCurrentUser(userData.data);
-      console.log(userData.data);
       navigate("/");
     } catch (error) {
       setHasError(true);
-      console.log(hasError);
-      // console.error(error);
+      handleOpenPopup({
+        children: (
+          <InfoToolTip
+            isSuccess={false}
+            text="E-mail ou senha incorretos. Por favor, tente novamente."
+          />
+        ),
+      });
+      console.error(error);
     }
   };
 
@@ -153,9 +160,23 @@ function App() {
     try {
       const newData = await auth.signUp(email, password);
       console.log(newData);
-      handleOpenPopup({ children: <InfoToolTip isSuccess={true} /> });
+      handleOpenPopup({
+        children: (
+          <InfoToolTip
+            isSuccess={true}
+            text="Vitória! Você precisa se registrar."
+          />
+        ),
+      });
     } catch (error) {
-      handleOpenPopup({ children: <InfoToolTip isSuccess={false} /> });
+      handleOpenPopup({
+        children: (
+          <InfoToolTip
+            isSuccess={false}
+            text="Ops, algo deu errado. Por favor, tente novamente."
+          />
+        ),
+      });
       console.error(error);
     }
   };

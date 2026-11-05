@@ -1,23 +1,16 @@
-//DOIS POPUPS:
-//1. VITÓRIA! VOCÊ PRECISA SE REGISTRAR
-//2.OPS, ALGO DEU ERRADO.POR FAVOR, TENTE NOVAMENTE.
 import successIcon from "../../images/success.png";
 import errorIcon from "../../images/error.png";
 import "./infotooltip.css";
 
-export default function InfoToolTip({ isSuccess }) {
+export default function InfoToolTip({ isSuccess, text }) {
   return (
     <div className="infotooltip">
       <img
         className="infotooltip__image"
         src={isSuccess ? successIcon : errorIcon}
-        alt="Ícone de sucesso"
+        alt={isSuccess ? "Ícone de sucesso" : "Ícone de erro"}
       />
-      <p className="infotooltip__text">
-        {isSuccess
-          ? "Vitória! Você precisa se registrar."
-          : "Ops, algo deu errado. Por favor, tente novamente."}
-      </p>
+      <p className="infotooltip__text">{text}</p>
     </div>
   );
 }

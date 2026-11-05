@@ -39,6 +39,7 @@ class Auth {
   }
 
   async getUser(jwt) {
+    //retorna email e id
     //fetch: 1o parametro é endpoint e o 2o é o objeto de configuração do fetch
     //método padrão do fetch é get
     const res = await fetch(`${this._url}/users/me`, {
