@@ -1,6 +1,5 @@
 import successIcon from "../../images/success.png";
 import errorIcon from "../../images/error.png";
-import "./infotooltip.css";
 
 export default function InfoToolTip({ isSuccess, text }) {
   return (
